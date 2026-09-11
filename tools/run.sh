@@ -3,7 +3,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PY="$ROOT/.venv/bin/python"
-[ -x "$PY" ] || { echo "no venv — run: ./tools/run.sh setup"; [ "${1:-}" = setup ] || exit 1; }
+[ -x "$PY" ] || [ "${1:-}" = setup ] || { echo "no venv — run: ./tools/run.sh setup"; exit 1; }
 # Credentials live outside git; absent is fine, the layers report it honestly.
 [ -f "$ROOT/.env" ] && { set -a; . "$ROOT/.env"; set +a; }
 
