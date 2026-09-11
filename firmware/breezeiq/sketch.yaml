@@ -1,0 +1,17 @@
+profiles:
+  default:
+    # App Lab supplies the FQBN itself when IT drives the build, so an empty
+    # value here went unnoticed for as long as nothing else ever built the
+    # sketch. `arduino-app-cli app restart` does not supply one: it compiles
+    # from this profile, links no Arduino core, and dies with a screenful of
+    # "undefined reference to arduino::Print::print". It only bites after a
+    # deploy, because tools/deploy.sh does not preserve .cache/ and the sketch
+    # then has to rebuild from scratch — which is how a deploy left the board
+    # with the app stopped and the room uncontrolled.
+    fqbn: arduino:zephyr:unoq
+    platforms:
+      - platform: arduino:zephyr
+    libraries:
+      - dependency: Adafruit Unified Sensor (1.1.15)
+      - DHT sensor library (1.4.7)
+default_profile: default

@@ -1,0 +1,10 @@
+# Installed by App Lab at app start ("python provisioning").
+#
+# onnxruntime runs the YOLO11s person counter. It is NOT optional on the
+# board: the comfort loop falls back to PIR-only occupancy without it, which
+# is the failure this model was chosen to fix.
+#
+# cv2.dnn would have avoided the dependency, but the board's OpenCV is an
+# Arduino build with the dnn module compiled out ("Disabled: dnn world"),
+# so ONNX Runtime is the only way to run the model here.
+onnxruntime>=1.20

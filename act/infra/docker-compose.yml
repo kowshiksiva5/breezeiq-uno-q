@@ -1,0 +1,24 @@
+# Home Assistant on the UNO Q's Linux side.
+#
+# HA is the DEVICE ABSTRACTION LAYER only — it speaks Tuya, Atomberg and
+# whatever comes next so BreezeIQ never learns a vendor protocol. It holds no
+# automations: ladder.py is the only thing that decides anything.
+#
+#   docker compose -f infra/docker-compose.yml up -d
+#
+# Reproduces the container currently running on the board.
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:stable
+    restart: unless-stopped
+    # Host networking is REQUIRED: Tuya devices are found by UDP broadcast on
+    # the LAN, and a bridged network hides those from the container.
+    network_mode: host
+    environment:
+      - TZ=Asia/Kolkata
+    volumes:
+      - /home/arduino/ha-config:/config
+    # Bluetooth is deliberately NOT granted (no NET_ADMIN/NET_RAW). Nothing in
+    # this design uses BT, and the capability is not worth the attack surface.
+    # HA logs a warning about it on boot; that warning is expected.

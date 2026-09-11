@@ -1,0 +1,10 @@
+name: BreezeIQ
+icon: 🌬️
+ports: [8000]
+# No bricks. The camera is owned directly by the YOLO counter (cv2 on
+# /dev/video), which also serves the live preview — so the App Lab
+# video_object_detection Brick is gone, and with it the whole "App Lab refuses
+# to start when a declared Brick has no device" failure mode that forced the
+# camera/nocamera manifest split. Comfort control was always Brick-free; now
+# occupancy is too. PIR still carries occupancy when the camera is absent.
+bricks: []

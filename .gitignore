@@ -1,0 +1,27 @@
+# secrets — never commit
+.env
+*.env
+!.env.example
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# arduino build output
+build/
+*/build/
+
+# local data
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+
+# vision model weights — fetched by tools/fetch-vision-model.sh
+sense/vision/models/*.onnx
+sense/vision/models/*.caffemodel
+sense/vision/models/*.eim
+brain/ar_weights.json
+
+# os
+.DS_Store

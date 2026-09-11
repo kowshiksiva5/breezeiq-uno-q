@@ -1,0 +1,26 @@
+# BreezeIQ — Python dependencies.
+#
+#   ./tools/run.sh setup        (creates .venv and installs this file)
+#   pip install -r requirements.txt
+#
+# Deliberately short. The comfort policy (brain/), the device layer (act/) and
+# the web console are stdlib only — SQLite, http.server, json, urllib — so the
+# thing that decides and the thing that serves the evidence have no pip surface
+# at all. Everything below exists to read a serial port, decode a camera frame,
+# or fit a forecast.
+
+# STM32 <-> Linux serial link (sense/reader/board.py). On the board the Arduino
+# Router is used instead, but the serial reader stays as the bring-up path.
+pyserial>=3.5
+
+# Camera capture and frame handling (sense/vision/). Headless on purpose: the
+# board has no display server. `<5` because OpenCV 5 changes API surface not
+# validated on aarch64.
+opencv-python-headless>=4.9,<5
+
+# Frame arrays for the vision path, and the least-squares fit behind
+# brain/forecast.py.
+numpy>=1.24
+
+# ON THE BOARD ONLY, installed by App Lab from app/breezeiq/requirements.txt:
+#   onnxruntime>=1.20    runs the YOLO11s person counter
